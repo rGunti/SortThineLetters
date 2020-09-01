@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SortThineLetters.Base.Storage.MongoDB\SortThineLetters.Base.Storage.MongoDB.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Storage\SortThineLetters.Storage.csproj" />
+  </ItemGroup>
+
+</Project>
