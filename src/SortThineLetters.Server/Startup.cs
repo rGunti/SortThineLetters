@@ -34,12 +34,12 @@ namespace SortThineLetters.Server
                     Contact = new OpenApiContact()
                     {
                         Name = "Raphael \"rGunti\" Guntersweiler",
-                        Email = "raphael@guntersweiler.net"
+                        Email = "raphael+sortthineletters@guntersweiler.net"
                     },
                     License = new OpenApiLicense()
                     {
                         Name = "MIT License",
-                        Url = new Uri("https://github.com/rGunti/SortThineLetters/LICENSE")
+                        Url = new Uri("https://github.com/rGunti/SortThineLetters/blob/master/LICENSE")
                     }
                 });
                 c.EnableAnnotations();
