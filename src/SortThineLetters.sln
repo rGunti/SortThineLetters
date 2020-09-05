@@ -8,21 +8,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortThineLetters.Server", "SortThineLetters.Server\SortThineLetters.Server.csproj", "{776F42CF-9654-4C1E-8470-A58F52A1A939}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortThineLetters.Server", "SortThineLetters.Server\SortThineLetters.Server.csproj", "{776F42CF-9654-4C1E-8470-A58F52A1A939}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{E2AE6A54-D0FA-44F2-877F-B63896736710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortThineLetters.Storage", "SortThineLetters.Storage\SortThineLetters.Storage.csproj", "{DFEEB151-3EB3-48F5-82C0-4E1897178C22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortThineLetters.Storage", "SortThineLetters.Storage\SortThineLetters.Storage.csproj", "{DFEEB151-3EB3-48F5-82C0-4E1897178C22}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{3D0860EE-CA46-4DF4-A59A-A33F65C2DF21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortThineLetters.Base.Storage", "SortThineLetters.Base.Storage\SortThineLetters.Base.Storage.csproj", "{7BBA5010-10C3-4130-A406-303F4B3E1A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortThineLetters.Base.Storage", "SortThineLetters.Base.Storage\SortThineLetters.Base.Storage.csproj", "{7BBA5010-10C3-4130-A406-303F4B3E1A85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortThineLetters.Base.Storage.MongoDB", "SortThineLetters.Base.Storage.MongoDB\SortThineLetters.Base.Storage.MongoDB.csproj", "{95EEFDA2-88B4-4701-8AA0-5584073361FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortThineLetters.Base.Storage.MongoDB", "SortThineLetters.Base.Storage.MongoDB\SortThineLetters.Base.Storage.MongoDB.csproj", "{95EEFDA2-88B4-4701-8AA0-5584073361FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{4C4D03F5-EFD1-428F-8C12-98BCF48B1C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortThineLetters.Storage.MongoDB", "SortThineLetters.Storage.MongoDB\SortThineLetters.Storage.MongoDB.csproj", "{46AA9235-C2CA-4383-B05F-B4D070C6CCF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortThineLetters.Storage.MongoDB", "SortThineLetters.Storage.MongoDB\SortThineLetters.Storage.MongoDB.csproj", "{46AA9235-C2CA-4383-B05F-B4D070C6CCF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
