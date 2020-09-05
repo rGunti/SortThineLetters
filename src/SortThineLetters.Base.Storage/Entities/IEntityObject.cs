@@ -1,6 +1,6 @@
 ﻿namespace SortThineLetters.Base.Storage.Entities
 {
-    public interface IEntity<TKey>
+    public interface IEntityObject<TKey>
     {
         TKey Id { get; set; }
     }

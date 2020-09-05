@@ -2,7 +2,7 @@
 
 namespace SortThineLetters.Storage.Entities
 {
-    public class MailBox : StringKeyEntity
+    public class MailBoxEO : StringKeyEntityObject
     {
         public string Server { get; set; }
         public int Port { get; set; }

@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SortThineLetters.Base.Services\SortThineLetters.Base.Services.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Core\SortThineLetters.Core.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Services\SortThineLetters.Services.csproj" />
     <ProjectReference Include="..\SortThineLetters.Storage.MongoDB\SortThineLetters.Storage.MongoDB.csproj" />
     <ProjectReference Include="..\SortThineLetters.Storage\SortThineLetters.Storage.csproj" />
   </ItemGroup>

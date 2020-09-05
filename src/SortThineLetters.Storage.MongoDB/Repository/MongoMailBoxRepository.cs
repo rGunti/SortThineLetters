@@ -5,7 +5,7 @@ using SortThineLetters.Storage.Storage;
 
 namespace SortThineLetters.Storage.MongoDB.Repository
 {
-    public class MongoMailBoxRepository : MongoRepository<MailBox, string>, IMailBoxRepository
+    public class MongoMailBoxRepository : MongoRepository<MailBoxEO, string>, IMailBoxRepository
     {
         public MongoMailBoxRepository(IMongoDatabase mongoDatabase)
             : base(mongoDatabase)

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SortThineLetters.Base.DTOs\SortThineLetters.Base.DTOs.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Base.Services\SortThineLetters.Base.Services.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Core.DTOs\SortThineLetters.Core.DTOs.csproj" />
+    <ProjectReference Include="..\SortThineLetters.Storage\SortThineLetters.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

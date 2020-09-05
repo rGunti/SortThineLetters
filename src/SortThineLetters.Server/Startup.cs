@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Events;
+using SortThineLetters.Core;
+using SortThineLetters.Services;
 using SortThineLetters.Storage.MongoDB;
 using System;
 
@@ -50,12 +53,14 @@ namespace SortThineLetters.Server
                 c.EnableAnnotations();
             });
 
-            services.AddMongoRepositories(
-                Configuration.GetConnectionString(Configuration.GetValue<string>("UseConnection")));
+            services
+                .AddMongoRepositories(Configuration.GetConnectionString(Configuration.GetValue<string>("UseConnection")))
+                .AddServices()
+                .AddCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MailBoxClientManager mailBoxClientManager)
         {
             if (env.IsDevelopment())
             {
@@ -81,6 +86,8 @@ namespace SortThineLetters.Server
             {
                 endpoints.MapControllers();
             });
+
+            mailBoxClientManager.Initialize();
         }
     }
 }

@@ -1,20 +1,25 @@
 ﻿using MongoDB.Driver;
 using SortThineLetters.Base.Storage.Entities;
 using SortThineLetters.Base.Storage.Repository;
-using System;
 using System.Linq;
 
 namespace SortThineLetters.Base.Storage.MongoDB.Repository
 {
     public abstract class MongoRepository<TEntity, TKey> : IRepository<TEntity, TKey>
-        where TEntity : IEntity<TKey>
+        where TEntity : IEntityObject<TKey>
     {
         protected readonly IMongoDatabase _mongoDatabase;
 
         protected MongoRepository(IMongoDatabase mongoDatabase)
         {
             _mongoDatabase = mongoDatabase;
-            CollectionName = typeof(TEntity).Name;
+
+            var entityName = typeof(TEntity).Name;
+            if (entityName.EndsWith("EO"))
+            {
+                entityName = entityName[0..^2];
+            }
+            CollectionName = entityName;
         }
 
         protected string CollectionName { get; }

@@ -3,7 +3,7 @@ using SortThineLetters.Storage.Entities;
 
 namespace SortThineLetters.Storage.Storage
 {
-    public interface IMailBoxRepository : IRepository<MailBox, string>
+    public interface IMailBoxRepository : IRepository<MailBoxEO, string>
     {
     }
 }
