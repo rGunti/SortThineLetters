@@ -49,6 +49,31 @@ namespace SortThineLetters.Core
             AddClient(client);
         }
 
+        public void DisposeClient(string clientId)
+        {
+            if (_tasks.TryGetValue(clientId, out _))
+            {
+                if (_clients.TryGetValue(clientId, out var client) && (!client?.IsDisposed ?? false))
+                {
+                    _logger.LogDebug("Terminating Client {id} ...", clientId);
+                    client?.Terminate();
+                    client?.Dispose();
+                    _clients.Remove(clientId);
+                }
+
+                _logger.LogDebug("Removing Task {id} ...", clientId);
+                _tasks.Remove(clientId);
+            }
+            
+            if (_clients.TryGetValue(clientId, out var undisposedClient) && (!undisposedClient?.IsDisposed ?? false))
+            {
+                _logger.LogDebug("Terminating and disposing Client {id} ...", clientId);
+                undisposedClient?.Terminate();
+                undisposedClient?.Dispose();
+                _clients.Remove(clientId);
+            }
+        }
+
         public void Dispose()
         {
             foreach ((var clientId, var task) in _tasks)
@@ -58,7 +83,7 @@ namespace SortThineLetters.Core
                     _logger.LogInformation("Terminating Client {id} ...", clientId);
                     if (_clients.TryGetValue(clientId, out var client))
                     {
-                        client.Terminate();
+                        client?.Terminate();
                     }
                 }
             }

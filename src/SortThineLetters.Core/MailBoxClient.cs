@@ -34,6 +34,7 @@ namespace SortThineLetters.Core
         }
 
         public string Identifier => _mailBox?.Id;
+        public bool IsDisposed { get; protected set; }
 
         public async Task Reconnect()
         {
@@ -222,7 +223,8 @@ namespace SortThineLetters.Core
             _client.Dispose();
             _cancel.Dispose();
 
-            _logger.LogDebug("{id}: Client disposed");
+            IsDisposed = true;
+            _logger.LogDebug("{id}: Client disposed", Identifier);
         }
     }
 
