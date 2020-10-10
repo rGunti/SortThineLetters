@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "ms-dotnettools.csharp",
+        "jolhe.csharp-netcore-extensionpack",
+        "formulahendry.dotnet",
+        "firefox.scaffold",
+        "adrianwilczynski.asp-net-core-switcher",
+        "schneiderpat.aspnet-helper",
+        "fudge.auto-using",
+        "aaron-bond.better-comments",
+        "jolhe.csharp-netcore-extensionpack",
+        "jorgeserrano.vscode-csharp-snippets",
+        "formulahendry.code-runner"
+    ]
+}
