@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using SortThineLetters.Core.DTOs;
 using SortThineLetters.Services.Services;
 using System;
@@ -11,6 +12,7 @@ namespace SortThineLetters.Core
     {
         private readonly ILogger<MailBoxClient> _clientLogger;
         private readonly IMailBoxService _mailBoxService;
+        private readonly IMapper _mapper;
 
         private readonly Dictionary<string, MailBoxClient> _clients;
         private readonly Dictionary<string, Task> _tasks;
@@ -18,11 +20,13 @@ namespace SortThineLetters.Core
         public MailBoxClientManager(
             ILogger<MailBoxClientManager> logger,
             ILogger<MailBoxClient> clientLogger,
-            IMailBoxService mailBoxService)
+            IMailBoxService mailBoxService,
+            IMapper mapper)
             : base(logger)
         {
             _clientLogger = clientLogger;
             _mailBoxService = mailBoxService;
+            _mapper = mapper;
 
             _clients = new Dictionary<string, MailBoxClient>();
             _tasks = new Dictionary<string, Task>();
@@ -45,7 +49,7 @@ namespace SortThineLetters.Core
         public void CreateNewClient(MailBoxDto mailBox)
         {
             _logger.LogDebug("Adding client for Mail Box {id} ...", mailBox.Id);
-            var client = new MailBoxClient(_clientLogger, mailBox);
+            var client = new MailBoxClient(_clientLogger, mailBox, _mapper);
             AddClient(client);
         }
 

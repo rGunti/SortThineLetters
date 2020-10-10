@@ -1,10 +1,13 @@
-﻿using MailKit;
+﻿using AutoMapper;
+using MailKit;
 using MailKit.Net.Imap;
 using Microsoft.Extensions.Logging;
+using MimeKit;
 using SortThineLetters.Core.DTOs;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,8 +17,9 @@ namespace SortThineLetters.Core
     {
         private readonly MailBoxDto _mailBox;
         private readonly ImapClient _client;
+        private readonly IMapper _mapper;
 
-        private readonly List<IMessageSummary> _messages;
+        private readonly List<Email> _messages;
 
         private readonly CancellationTokenSource _cancel;
         private CancellationTokenSource _done;
@@ -23,12 +27,14 @@ namespace SortThineLetters.Core
 
         public MailBoxClient(
             ILogger<MailBoxClient> logger,
-            MailBoxDto mailBox)
+            MailBoxDto mailBox,
+            IMapper mapper)
             : base(logger)
         {
-            _messages = new List<IMessageSummary>();
+            _messages = new List<Email>();
             _client = new ImapClient();
             _mailBox = mailBox;
+            _mapper = mapper;
 
             _cancel = new CancellationTokenSource();
         }
@@ -114,6 +120,7 @@ namespace SortThineLetters.Core
         private async Task FetchMessageSummaries()
         {
             IList<IMessageSummary> fetched;
+            IList<Email> emails;
 
             do
             {
@@ -123,6 +130,40 @@ namespace SortThineLetters.Core
                     fetched = _client.Inbox.Fetch(startIndex, -1,
                         MessageSummaryItems.Full | MessageSummaryItems.UniqueId,
                         _cancel.Token);
+
+                    emails = fetched
+                        .Select(i =>
+                        {
+                            var email = _mapper.Map<Email>(i);
+                            if (i.BodyParts != null)
+                            {
+                                _logger.LogDebug("{id}: Downloading message body of #{index} ...", Identifier, i.Index);
+                                var parts = new List<EmailBody>();
+                                foreach (var bodyPart in i.BodyParts)
+                                {
+                                    var body = _client.Inbox.GetBodyPart(i.Index, bodyPart, _cancel.Token);
+                                    _logger.LogTrace("{id}: Got body #{index},{bodyPart} ...", Identifier, i.Index, body.ContentId);
+
+                                    var emailBody = new EmailBody();
+
+                                    using var memoryStream = new MemoryStream();
+                                    if (body is TextPart textPart)
+                                    {
+                                        textPart.Content.DecodeTo(memoryStream);
+                                    }
+                                    else
+                                    {
+                                        body.WriteTo(memoryStream, _cancel.Token);
+                                    }
+                                    emailBody.Body = memoryStream.ToArray();
+                                    parts.Add(emailBody);
+                                }
+
+                                email.BodyParts = parts.ToArray();
+                            }
+                            return email;
+                        })
+                        .ToList();
                     break;
                 }
                 catch (ImapProtocolException)
@@ -135,7 +176,8 @@ namespace SortThineLetters.Core
                 }
             } while (true);
 
-            _messages.AddRange(fetched);
+            _logger.LogDebug("{id}: Downloaded {count} messages", Identifier, fetched.Count);
+            _messages.AddRange(emails);
         }
 
         async Task WaitForNewMessages()
@@ -225,17 +267,6 @@ namespace SortThineLetters.Core
 
             IsDisposed = true;
             _logger.LogDebug("{id}: Client disposed", Identifier);
-        }
-    }
-
-    static class MailBoxRegistration
-    {
-        public static void Connect(
-            this MailBoxDto mailBox,
-            IImapClient client,
-            CancellationTokenSource cancelToken)
-        {
-            client.Connect(mailBox.Server, mailBox.Port, MailKit.Security.SecureSocketOptions.Auto, cancelToken.Token);
         }
     }
 }
